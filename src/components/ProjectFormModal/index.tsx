@@ -32,6 +32,7 @@ import axios from 'axios'
 import { imageUrlToBase64 } from '@/functions/imageUrlToBase64'
 import { isBase64 } from '@/functions/isBAse64'
 import { Status } from '@/context/ModalContext'
+import { useAuth } from '@/hooks/useAuth'
 
 type Props = {
   titleModal: string
@@ -60,6 +61,7 @@ export function ProjectFormModal({ titleModal }: Props) {
   const [selectedTags, setSelectedTags] = useState<string[]>([])
 
   const modalContext = useOpenCloseModal()
+  const {user} = useAuth()
   const {
     closeEditModal,
     projectData,
@@ -179,9 +181,9 @@ export function ProjectFormModal({ titleModal }: Props) {
         }),
         titulo: title,
         user: {
-          nome: 'douglas',
-          sobrenome: 'santos',
-          avatar: '',
+          nome: projectData ? projectData.user.nome: user?.given_name! ,
+          sobrenome: projectData ? projectData.user.sobrenome : user?.family_name!,
+          avatar: user?.avatar!,
         },
       })
     }
