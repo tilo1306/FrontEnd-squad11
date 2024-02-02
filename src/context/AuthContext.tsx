@@ -76,7 +76,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   async function logout() {
-    await logoutUse()
     Cookies.remove('session')
     Cookies.remove('user')
     setUser(null)
